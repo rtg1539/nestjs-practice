@@ -1,8 +1,22 @@
 // nest g controller [name] --no-spec
 
-import { Controller, Get, Header, HttpCode, Param, Post, Query, Redirect, Req } from '@nestjs/common';
-import { Request } from 'express';
+import {
+  Body,
+  Controller,
+  Get,
+  Header,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Query,
+  Redirect,
+  Req,
+  Res,
+} from '@nestjs/common';
+import { Request, Response } from 'express';
 import { Observable, of } from 'rxjs';
+import { CreateCatDto } from './create-cat.dto';
 
 @Controller('cats')
 export class CatsController {
@@ -80,5 +94,29 @@ export class CatsController {
   @Get('observe')
   observable(): Observable<any[]> {
     return of([]);
+  }
+
+  @Post('create')
+  async createCat(@Body() createCatDto: CreateCatDto) {
+    console.log(createCatDto);
+    return 'This action adds a new cat';
+  }
+
+  // library-specific
+  @Post('lib')
+  libCreate(@Res() res: Response) {
+    console.log('a');
+    res.status(HttpStatus.CREATED).send();
+  }
+
+  @Get('lib')
+  libFindAll(@Res() res: Response) {
+    res.status(HttpStatus.OK).json([]);
+  }
+
+  @Get('lib')
+  libFindAll2(@Res({ passthrough: true }) res: Response) {
+    res.status(HttpStatus.OK);
+    return [];
   }
 }
