@@ -8,8 +8,10 @@ export class AuthService {
 
   async login(loginAuthDto: LoginAuthDto) {
     const { id, pw } = loginAuthDto;
-    const user = await this.usersService.findOne({ id, pw });
-    console.log(user);
+    const user = await this.usersService.findOne(id);
+    const { pw: userPw } = user;
+    console.log('a');
+    console.log(user && pw === userPw);
     return user;
   }
 }
