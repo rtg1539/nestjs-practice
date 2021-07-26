@@ -7,6 +7,6 @@ import { UserFeature } from './user.feature';
   controllers: [UsersController],
   providers: [UsersService],
   imports: [UserFeature],
-  exports: [UsersModule],
+  exports: [UsersService],
 })
 export class UsersModule {}

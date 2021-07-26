@@ -9,9 +9,15 @@ export class AuthService {
   async login(loginAuthDto: LoginAuthDto) {
     const { id, pw } = loginAuthDto;
     const user = await this.usersService.findOne(id);
+    console.log(user);
     const { pw: userPw } = user;
+    if (user && pw === userPw) {
+      return true;
+    }
+    return false;
+  }
+
+  async verify() {
     console.log('a');
-    console.log(user && pw === userPw);
-    return user;
   }
 }
