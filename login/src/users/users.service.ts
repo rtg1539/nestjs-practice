@@ -13,9 +13,8 @@ export class UsersService {
     return createdCat.save();
   }
 
-  async findOne(id: { a: string }) {
-    const { a } = id;
-    const b = await this.userModel.findOne({ id: a });
+  async findOne({ id, pw }: { id: string, pw: string }) {
+    const b = await this.userModel.findOne({ id, pw });
     return b;
   }
 }
