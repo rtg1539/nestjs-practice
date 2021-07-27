@@ -3,11 +3,13 @@ import {
   Get,
   Post,
   Body,
-  Param,
+  Param, UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -20,6 +22,11 @@ export class UsersController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
+  }
+
+  @Get()
+  abc() {
+    return 'abc';
   }
 
   /* @Get()
