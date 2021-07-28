@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { AuthPayload } from './auth.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -17,9 +18,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Post('verify')
   verify(@Request() req) {
-    console.log(req);
-    const { user }: { user: { id: string } } = req;
-    console.log(user);
-    return this.authService.verify();
+    const { user }: { user: AuthPayload } = req;
+    return this.authService.verify(user);
   }
 }
