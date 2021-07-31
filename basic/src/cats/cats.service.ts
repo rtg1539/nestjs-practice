@@ -1,3 +1,5 @@
+// nest g s cats --no-spec
+
 import { Injectable } from '@nestjs/common';
 import { Cat } from './cat.interface';
 

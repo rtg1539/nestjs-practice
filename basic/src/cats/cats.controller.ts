@@ -17,11 +17,15 @@ import {
 import { Request, Response } from 'express';
 import { Observable, of } from 'rxjs';
 import { CreateCatDto } from './create-cat.dto';
+import { CatsService } from './cats.service';
 
 @Controller('cats')
 export class CatsController {
+  constructor(private catsService: CatsService) {}
   @Get()
   findAll(): string {
+    const cats = this.catsService.findAll();
+    console.log(cats);
     return 'ho ho';
   }
 
