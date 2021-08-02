@@ -25,7 +25,6 @@ export class CatsController {
   @Get()
   findAll(): string {
     const cats = this.catsService.findAll();
-    console.log(cats);
     return 'ho ho';
   }
 
