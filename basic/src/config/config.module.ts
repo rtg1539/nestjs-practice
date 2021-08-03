@@ -3,10 +3,16 @@ import { ConfigService } from './config.service';
 
 @Module({})
 export class ConfigModule {
-  static register(options: any): DynamicModule {
+  static register(options): DynamicModule {
     return {
       module: ConfigModule,
-      providers: [ConfigService],
+      providers: [
+        {
+          provide: 'CONFIG_OPTIONS',
+          useValue: options,
+        },
+        ConfigService,
+      ],
       exports: [ConfigService],
     };
   }
