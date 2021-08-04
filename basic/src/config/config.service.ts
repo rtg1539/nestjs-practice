@@ -15,3 +15,7 @@ export class ConfigService {
     return this.envConfig[key];
   }
 }
+
+export class DevelopmentConfigService {}
+
+export class ProductionConfigService {}

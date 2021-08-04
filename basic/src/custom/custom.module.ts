@@ -1,7 +1,23 @@
 import { Module } from '@nestjs/common';
 import { CatsService } from '../cats/cats.service';
 import { CatsModule } from '../cats/cats.module';
-import { ConfigService } from '../config/config.service';
+import {
+  ConfigService,
+  DevelopmentConfigService,
+  ProductionConfigService,
+} from '../config/config.service';
+
+class OptionsProvider {
+  get() {
+    return 'asdf';
+  }
+}
+
+class DatabaseConnection {
+  constructor(options) {
+    console.log(options);
+  }
+}
 
 const mockCatsService = {
   mock: 'mock',
@@ -9,7 +25,19 @@ const mockCatsService = {
 
 const configServiceProvider = {
   provide: ConfigService,
-  useClass: ConfigService,
+  useClass:
+    process.env.NODE_ENV === 'development'
+      ? DevelopmentConfigService
+      : ProductionConfigService,
+};
+
+const connectionFactory = {
+  provide: 'CONNECTION',
+  useFactory: (optionsProvider: OptionsProvider) => {
+    const options = optionsProvider.get();
+    return new DatabaseConnection(options);
+  },
+  inject: [OptionsProvider],
 };
 
 @Module({
@@ -24,6 +52,7 @@ const configServiceProvider = {
       useValue: mockCatsService,
     },
     configServiceProvider,
+    connectionFactory,
   ],
 })
 export class CustomModule {}
