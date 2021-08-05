@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Injectable, Module } from '@nestjs/common';
 import { CatsService } from '../cats/cats.service';
 import { CatsModule } from '../cats/cats.module';
 import {
@@ -40,6 +40,18 @@ const connectionFactory = {
   inject: [OptionsProvider],
 };
 
+@Injectable()
+class LoggerService {
+  hoho() {
+    return 'hoho';
+  }
+}
+
+const loggerAliasProvider = {
+  provide: 'AliasedLoggerService',
+  useExisting: LoggerService,
+};
+
 @Module({
   imports: [CatsModule],
   providers: [
@@ -53,6 +65,8 @@ const connectionFactory = {
     },
     configServiceProvider,
     connectionFactory,
+    LoggerService,
+    loggerAliasProvider,
   ],
 })
 export class CustomModule {}
