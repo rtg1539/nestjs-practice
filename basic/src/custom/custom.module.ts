@@ -23,6 +23,7 @@ const mockCatsService = {
   mock: 'mock',
 };
 
+// class provider
 const configServiceProvider = {
   provide: ConfigService,
   useClass:
@@ -31,6 +32,7 @@ const configServiceProvider = {
       : ProductionConfigService,
 };
 
+// factory provider
 const connectionFactory = {
   provide: 'CONNECTION',
   useFactory: (optionsProvider: OptionsProvider) => {
@@ -40,6 +42,7 @@ const connectionFactory = {
   inject: [OptionsProvider],
 };
 
+// alias provider
 @Injectable()
 class LoggerService {
   hoho() {
@@ -50,6 +53,14 @@ class LoggerService {
 const loggerAliasProvider = {
   provide: 'AliasedLoggerService',
   useExisting: LoggerService,
+};
+
+// non-service based provider
+const configFactory = {
+  provide: 'CONFIG',
+  useFactory: () => {
+    return ['hoho'];
+  },
 };
 
 @Module({
@@ -67,6 +78,7 @@ const loggerAliasProvider = {
     connectionFactory,
     LoggerService,
     loggerAliasProvider,
+    configFactory
   ],
 })
 export class CustomModule {}
