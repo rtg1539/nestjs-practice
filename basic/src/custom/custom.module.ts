@@ -78,7 +78,11 @@ const configFactory = {
     connectionFactory,
     LoggerService,
     loggerAliasProvider,
-    configFactory
+    configFactory,
   ],
+  // EXPORT CUSTOM PROVIDER
+  exports: ['CONNECTION'],
+  // or 전체 객체 export
+  // exports: [connectionFactory],
 })
 export class CustomModule {}
