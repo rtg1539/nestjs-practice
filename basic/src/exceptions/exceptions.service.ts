@@ -11,14 +11,14 @@ export class ExceptionsService {
 
   findAll() {
     // throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-    throw new HttpException(
+    /*throw new HttpException(
       {
         status: HttpStatus.FORBIDDEN,
         error: 'custom message',
       },
       HttpStatus.FORBIDDEN,
-    );
-    throw new ForbiddenException();
+    );*/
+    throw new ForbiddenException('custom message');
   }
 
   findOne(id: number) {
