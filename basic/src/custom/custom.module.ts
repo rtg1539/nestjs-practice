@@ -63,6 +63,10 @@ const configFactory = {
   },
 };
 
+async function createConnection(options: any) {
+  return 'conn';
+}
+
 @Module({
   imports: [CatsModule],
   providers: [
@@ -79,6 +83,13 @@ const configFactory = {
     LoggerService,
     loggerAliasProvider,
     configFactory,
+    {
+      provide: 'ASYNC_CONNECTION',
+      useFactory: async () => {
+        const connection = await createConnection('options');
+        return connection;
+      },
+    },
   ],
   // EXPORT CUSTOM PROVIDER
   exports: ['CONNECTION'],
