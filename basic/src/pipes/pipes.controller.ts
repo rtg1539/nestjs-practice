@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller, DefaultValuePipe,
+  Delete,
+  Get,
+  HttpStatus,
+  Param, ParseBoolPipe,
+  ParseIntPipe,
+  Patch,
+  Post, Query,
+} from '@nestjs/common';
 import { PipesService } from './pipes.service';
 import { CreatePipeDto } from './dto/create-pipe.dto';
 import { UpdatePipeDto } from './dto/update-pipe.dto';
@@ -13,12 +23,22 @@ export class PipesController {
   }
 
   @Get()
-  findAll() {
+  findAll(
+    @Query('activeOnly', new DefaultValuePipe(false), ParseBoolPipe)
+    activeOnly: boolean,
+    @Query('page', new DefaultValuePipe(0), ParseIntPipe) page: number,
+  ) {
     return this.pipesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number) {
+  findOne(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ) {
     return this.pipesService.findOne(id);
   }
 
