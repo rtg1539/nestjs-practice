@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters } from '@nestjs/common';
 import { ExceptionsService } from './exceptions.service';
 import { CreateExceptionDto } from './dto/create-exception.dto';
 import { UpdateExceptionDto } from './dto/update-exception.dto';
+import { HttpExceptionFilter } from './http-exception.filter';
 
 @Controller('exceptions')
 export class ExceptionsController {
@@ -13,6 +14,8 @@ export class ExceptionsController {
   }
 
   @Get()
+  // @UseFilters(new HttpExceptionFilter())
+  @UseFilters(HttpExceptionFilter) // better 메모리 소비 적음
   findAll() {
     return this.exceptionsService.findAll();
   }
