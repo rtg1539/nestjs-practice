@@ -10,13 +10,14 @@ import {
 import { GuardService } from './guard.service';
 import { CreateGuardDto } from './dto/create-guard.dto';
 import { UpdateGuardDto } from './dto/update-guard.dto';
+import { Roles } from './roles.decorator';
 
 @Controller('guard')
 export class GuardController {
   constructor(private readonly guardService: GuardService) {}
 
   @Post()
-  @SetMetadata('roles',['admin'])
+  @Roles('admin')
   create(@Body() createGuardDto: CreateGuardDto) {
     return this.guardService.create(createGuardDto);
   }
