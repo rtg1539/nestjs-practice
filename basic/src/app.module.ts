@@ -6,6 +6,7 @@ import { ConfigModule } from './config/config.module';
 import { CustomModule } from './custom/custom.module';
 import { ExceptionsModule } from './exceptions/exceptions.module';
 import { PipesModule } from './pipes/pipes.module';
+import { GuardModule } from './guard/guard.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { PipesModule } from './pipes/pipes.module';
     CustomModule,
     ExceptionsModule,
     PipesModule,
+    GuardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
