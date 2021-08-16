@@ -5,14 +5,16 @@ import {
   Body,
   Patch,
   Param,
-  Delete, SetMetadata,
+  Delete, SetMetadata, UseGuards,
 } from '@nestjs/common';
 import { GuardService } from './guard.service';
 import { CreateGuardDto } from './dto/create-guard.dto';
 import { UpdateGuardDto } from './dto/update-guard.dto';
 import { Roles } from './roles.decorator';
+import { RolesGuard } from './auth.guard';
 
 @Controller('guard')
+@UseGuards(RolesGuard)
 export class GuardController {
   constructor(private readonly guardService: GuardService) {}
 
